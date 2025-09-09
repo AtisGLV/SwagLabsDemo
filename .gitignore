@@ -1,0 +1,24 @@
+# Ignore build output
+bin/
+obj/
+
+# Ignore Visual Studio temporary files
+*.user
+*.suo
+*.vs/
+*.ncb
+*.VC.db
+*.VC.opendb
+
+# Ignore Playwright browser binaries
+**/.playwright/
+
+# Ignore NuGet packages
+*.nupkg
+packages/
+
+# Ignore Rider/IDE files
+.idea/
+
+# Ignore logs and temporary files
+*.log

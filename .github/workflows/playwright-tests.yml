@@ -1,0 +1,57 @@
+name: Playwright C# Tests
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+    inputs:
+      SAUCE_USERNAME:
+        description: 'SauceLabs username'
+        required: true
+      SAUCE_PASSWORD:
+        description: 'SauceLabs password'
+        required: true
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        browser: [chromium, firefox, webkit]
+
+    defaults:
+      run:
+        working-directory:
+
+    steps:
+      # 1. Checkout code
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      # 2. Setup .NET SDK
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: '7.0.x'
+
+      # 3. Restore NuGet packages
+      - name: Restore dependencies
+        run: dotnet restore
+
+      # 4. Build project
+      - name: Build
+        run: dotnet build --configuration Release  
+
+      # 5. Install Playwright CLI locally
+      - name: Install Playwright browsers
+        run: dotnet tool restore
+      - name: Install Playwright dependencies
+        run: dotnet tool run playwright install --with-deps
+
+      # 7. Run tests
+      - name: Run tests
+        run: dotnet test --configuration Release --no-build
+        env:
+          BROWSER: ${{ matrix.browser }}
+          SAUCE_USERNAME: ${{ github.event.inputs.SAUCE_USERNAME || secrets.SAUCE_USERNAME }}
+          SAUCE_PASSWORD: ${{ github.event.inputs.SAUCE_PASSWORD || secrets.SAUCE_PASSWORD }}
