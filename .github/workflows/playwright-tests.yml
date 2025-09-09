@@ -19,10 +19,6 @@ jobs:
       matrix:
         browser: [chromium, firefox, webkit]
 
-    defaults:
-      run:
-        working-directory:
-
     steps:
       # 1. Checkout code
       - name: Checkout
