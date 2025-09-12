@@ -60,6 +60,13 @@ namespace SwagLabsDemo.Pages
             await LogIn("visual_user", "secret_sauce");
         }
 
+        public async Task AssertLoginFieldsVisible()
+        {
+            Assert.True(await UsernameField.IsVisibleAsync(), "Username field not visible");
+            Assert.True(await PasswordField.IsVisibleAsync(), "Password field not visible");
+            Assert.True(await LoginButton.IsVisibleAsync(), "Login button not visible");
+        }
+
         // Locators
 
         private ILocator UsernameField => _page.Locator("#user-name");

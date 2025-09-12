@@ -29,6 +29,7 @@ namespace SwagLabsDemo
 
                 // Navigate to website and log in
                 await loginPage.GoToWebsite();
+                await loginPage.AssertLoginFieldsVisible();
                 await loginPage.LogInAsStandardUser();
                 Assert.Equal("https://www.saucedemo.com/inventory.html", page.Url);
 
