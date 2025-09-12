@@ -5,7 +5,7 @@ using Xunit;
 
 namespace SwagLabsDemo
 {
-    public class SimpleTest 
+    public class SimpleTest
     {
         [Fact]
         public async Task Shirtbuy()
@@ -30,7 +30,19 @@ namespace SwagLabsDemo
                 // Navigate to website and log in
                 await loginPage.GoToWebsite();
                 await loginPage.AssertLoginFieldsVisible();
-                await loginPage.LogInAsStandardUser();
+                try
+                {
+                    await Task.WhenAll(
+                        page.WaitForURLAsync("**/inventory.html"),
+                        loginPage.LogInAsStandardUser()
+                    );
+                }
+                catch
+                {
+                    await page.ScreenshotAsync(new PageScreenshotOptions { Path = "login_failure.png" });
+                    throw;
+                }
+
                 Assert.Equal("https://www.saucedemo.com/inventory.html", page.Url);
 
                 // Add item to cart
