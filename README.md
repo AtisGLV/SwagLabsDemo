@@ -1,29 +1,23 @@
-Strategy:
-All tests are run in all three browsers when on git. 
-D:\Code\SwagLabs\SwagLabsDemo\.github\workflows\playwright-tests.yml
-      strategy:
-        matrix:
-          browser: [chromium, firefox, webkit] 
+A demo showcase project for automated website testing using Playwright C#.
 
-For debugging, locally the browser and headless mode can be changed on each test via:
-
-            var browserAndPage = await PlaywrightHelper.CreateBrowserAndPageAsync(
-                headless: true,
-                browserNameOverride: "chromium");
+This project demonstrates a complete purchase flow on the Swag Labs demo site. It includes secret handling and automation of common actions like logging in, adding items to the cart, and completing checkout.
 
 
+CI / GitHub Actions
+The GitHub Actions workflow that ran the tests in a virtual machine has been disabled due to environment inconsistencies. It can be re-enabled if a reliable CI solution is found.
 
 
+Debugging Locally
+Tests can be debugged locally by running them in headed mode (headless: false) and selecting a browser (chromium, firefox, or webkit) to observe test execution.
 
+********************************************************************
+Example Test: Buying the Shirt
+Location: D:\Code\SwagLabs\SwagLabsDemo\Tests\BuyingTshirt.cs
 
-
-Buying the shirt test. 
-D:\Code\SwagLabs\SwagLabsDemo\Tests\BuyingTshirt.cs
-
-// 1. Go to website and log in
-// 2. Add T-shirt to cart and verify cart count
-// 3. Proceed to checkout and fill info
-// 4. Verify item in checkout overview
-// 5. Finish checkout and verify confirmation
-
-
+Test flow:
+Navigate to the website and log in.
+Add a T-shirt to the cart and verify the cart count.
+Proceed to checkout and fill in required information.
+Verify the item appears correctly in the checkout overview.
+Complete the checkout and verify confirmation.
+********************************************************************

@@ -30,19 +30,7 @@ namespace SwagLabsDemo
                 // Navigate to website and log in
                 await loginPage.GoToWebsite();
                 await loginPage.AssertLoginFieldsVisible();
-                try
-                {
-                    await Task.WhenAll(
-                        page.WaitForURLAsync("**/inventory.html"),
-                        loginPage.LogInAsStandardUser()
-                    );
-                }
-                catch
-                {
-                    await page.ScreenshotAsync(new PageScreenshotOptions { Path = "login_failure.png" });
-                    throw;
-                }
-
+                await loginPage.LogInAsStandardUser();
                 Assert.Equal("https://www.saucedemo.com/inventory.html", page.Url);
 
                 // Add item to cart
